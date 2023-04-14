@@ -19,7 +19,7 @@ from openai.embeddings_utils import distances_from_embeddings, cosine_similarity
 import psycopg2
 import csv
 
-domain = "postgresql.org"
+domain = "www.gutenberg.org"
 
 def remove_newlines(serie):
     serie = serie.str.replace('\n', ' ')
@@ -41,10 +41,9 @@ for file in os.listdir("text/" + domain + "/"):
 
     # Open the file and read the text
     with open("text/" + domain + "/" + file, "r", encoding="UTF-8") as f:
+        first_line = f.readline()
         text = f.read()
-
-        # Omit the first 11 lines and the last 4 lines, then replace -, _, and #update with spaces.
-        texts.append((file[11:-4].replace('-',' ').replace('_', ' ').replace('#update',''), text))
+        texts.append((first_line, text))
 
 # Create a dataframe from the list of texts
 df = pd.DataFrame(texts, columns = ['fname', 'text'])
