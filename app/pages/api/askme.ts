@@ -1,4 +1,4 @@
-import { Client } from '@neondatabase/serverless';
+import { Client } from 'pg';
 import {
   createParser,
   ParsedEvent,
